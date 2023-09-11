@@ -12,4 +12,4 @@ nano ~/config/shardeum.sh
 #!/bin/bash
 id=optional
 
-
+ 
