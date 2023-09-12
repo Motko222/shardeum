@@ -5,7 +5,6 @@ if [ -f "$FILE" ]; then
     echo "$FILE exists, skipping creation..."
 else 
     echo "$FILE does not exist, creating..."
-    echo '#!/bin/bash' > $FILE
     echo 'id=optional' >> $FILE
 fi
 
