@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#test
 FILE=~/config/shardeum.sh
 if [ -f "$FILE" ]; then
     echo "$FILE exists, skipping creation..."
@@ -7,7 +7,7 @@ else
     echo "$FILE does not exist, creating..."
     echo 'id=optional' >> $FILE
 fi
-
+   
 sudo apt update
 apt upgrade -y
 sudo apt-get install curl jq
