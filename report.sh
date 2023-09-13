@@ -15,7 +15,7 @@ network="sphinx"
 type="validator"
 foldersize=$(du -hs $HOME/.shardeum | awk '{print $1}')
 
-echo "updated=$(date +'%y-%m-%d.%H:%M:%S')"
+echo "updated=$(date +'%y-%m-%d %H:%M')"
 echo "version='$version'"
 echo "status=$status" 
 echo "note='$note'"
