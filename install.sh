@@ -1,5 +1,5 @@
 #!/bin/bash
-#test
+#test123
 FILE=~/config/shardeum.sh
 if [ -f "$FILE" ]; then
     echo "$FILE exists, skipping creation..."
