@@ -3,5 +3,5 @@
 **INSTALL**
 cd ~/scripts;
 git clone https://github.com/Motko222/shardeum;
-chmod +x -R ~/scripts;
+chmod +x ~/scripts/shardeum/*.sh;
  
