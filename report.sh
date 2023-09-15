@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/config/shardeum.sh
+source ~/scripts/shardeum/config/env
 
 note=""
 port=$(cat ~/.shardeum/.env | grep SHMEXT | cut -d "=" -f 2)
