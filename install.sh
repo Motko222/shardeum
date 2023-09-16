@@ -2,6 +2,14 @@
 
 cp ~/scripts/shardeum/config/env.sample ~/scripts/shardeum/config/env
 
+  if [ -f ~/scripts/shardeum/config/env ] 
+    then
+      echo "Config file found."
+    else
+      echo "Config file not found, creating one."
+      cp ~/scripts/shardeum/config/env.sample ~/scripts/shardeum/config/env
+  fi
+
 sudo apt update
 apt upgrade -y
 sudo apt-get install curl jq
