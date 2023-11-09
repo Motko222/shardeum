@@ -23,3 +23,4 @@ echo "network=$network"
 echo "type=$type"
 echo "folder=$foldersize"
 echo "id=$id"
+echo "statusapi="$sts
