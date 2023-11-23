@@ -1,6 +1,7 @@
 #!/bin/bash
 
-echo "shell commands:"
-echo "operator-cli gui start; operator-cli start; operator-cli status"
+echo "Shell commands:"
+echo "Start node:    operator-cli gui start; operator-cli start; exit"
+echo "Status:        operator-cli gui status; operator-cli status;"
 cd ~/.shardeum
 ./shell.sh
