@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -d ~/.shardeum]
+if [ -d ~/.shardeum ]
 then
  read -p "Shardeum node already installed, this action will purge and re-install. Are you sure? " sure
  case $sure in
