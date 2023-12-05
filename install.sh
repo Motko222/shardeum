@@ -15,7 +15,7 @@ then
   ;;
   esac
  else
-  echo "Sharedeum node installation not found."
+  echo "Shardeum node installation not found."
  fi
 
 if [ $exit ]
