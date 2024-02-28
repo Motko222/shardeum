@@ -36,6 +36,6 @@ cat << EOF
   "node_status":"$node_status",
   "port":"$port",
   "version":"$version",
-  "links": { "name":"dash", "url":"http://$server_ip:$dash_port/maintenance" }
+  "links": { "name":"dash", "url":"https://$server_ip:$dash_port/maintenance" }
 }
 EOF
