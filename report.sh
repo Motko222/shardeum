@@ -39,6 +39,6 @@ cat << EOF
   "updated":"$(date --utc +%FT%TZ)",
   "docker_status":"$docker_status",
   "port":"$port",
-  "version":"$version",
+  "version":"$version"
 }
 EOF
