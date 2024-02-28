@@ -1,4 +1,4 @@
-#!/bin/bash
+t#!/bin/bash
 
 folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
 docker_status=$(docker inspect shardeum-dashboard | jq -r .[].State.Status)
@@ -34,7 +34,7 @@ cat << EOF
   "updated":"$(date --utc +%FT%TZ)",
   "docker_status":"$docker_status",
   "node_status":"$node_status",
-  "port":"$port",
+  "ext_port":"$ext_port",
   "version":"$version",
   "links": { "name":"dash", "url":"https://$server_ip:$dash_port/maintenance" }
 }
