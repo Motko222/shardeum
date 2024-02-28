@@ -1,12 +1,5 @@
 #!/bin/bash
 
-#docker compose safe
-#if command -v docker-compose &>/dev/null
-#then docker_compose="docker-compose"
-#elif docker --help | grep -q "compose"
-#then docker_compose="docker compose"
-#fi
-
 folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
 docker_status=$(docker inspect shardeum-dashboard | jq -r .[].State.Status)
 folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
