@@ -37,6 +37,7 @@ cat << EOF
   "folder_size":"$folder_size",
   "updated":"$(date --utc +%FT%TZ)",
   "docker_status":"$docker_status",
+  "node_status":"$node_status",
   "port":"$port",
   "version":"$version"
 }
