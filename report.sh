@@ -41,10 +41,10 @@ cat << EOF
 }
 EOF
 
-if [ ! -z $HOST ] then
-do
-curl --request POST \
-"$HOST/api/v2/write?org=$ORG&bucket=node&precision=ns" \
+if [ ! -z $HOST ]
+then
+ curl --request POST \
+ "$HOST/api/v2/write?org=$ORG&bucket=node&precision=ns" \
   --header "Authorization: Token $TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
