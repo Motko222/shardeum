@@ -51,4 +51,4 @@ then
   --data-binary '
     status,node=$ID,machine=$MACHINE status="$status",message="$note" $(date +%s%N) 
     '
-done
+fi
