@@ -11,20 +11,20 @@ version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.sha
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
 
 case $node_status in
- null) status="ok";note="standby ($note_status)" ;;
- active) status="ok";note="active" ;;
- *) status="error";note="API error ($note_status)" ;;
+ null) status="ok";message="standby ($note_status)" ;;
+ active) status="ok";message="active" ;;
+ *) status="error";message="API error ($note_status)" ;;
 esac
 
 case $docker_status in
   running) ;;
-  *) status="error"; note="docker not running" ;;
+  *) status="error"; message="docker not running" ;;
 esac
 
 cat << EOF
 {
   "project":"$folder",
-  "id":"$SHARDEUM_ID",
+  "id":"$ID",
   "machine":"$MACHINE",
   "chain":"sphinx",
   "type":"node",
@@ -39,3 +39,15 @@ cat << EOF
   "links": { "name":"dash", "url":"https://$server_ip:$dash_port/maintenance" }
 }
 EOF
+
+if [ ! -z $HOST ] then
+do
+curl --request POST \
+"$HOST/api/v2/write?org=$ORG&bucket=node&precision=ns" \
+  --header "Authorization: Token $TOKEN" \
+  --header "Content-Type: text/plain; charset=utf-8" \
+  --header "Accept: application/json" \
+  --data-binary '
+    status,node=$ID,machine=$MACHINE status="$status",message="$note" $(date +%s%N) 
+    '
+done
