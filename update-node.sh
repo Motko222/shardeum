@@ -8,6 +8,9 @@ chmod +x installer.sh
 folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
 source ~/scripts/$folder/conf
 
+ext_port=$(cat ~/.shardeum/.env | grep SHMEXT | cut -d "=" -f 2)
+version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.shardeumVersion | sed 's/\"//g')
+
 if [ ! -z $HOST ]
 then
  curl --request POST \
