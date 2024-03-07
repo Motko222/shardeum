@@ -22,6 +22,7 @@ case $docker_status in
   *) status="error"; message="docker not running" ;;
 esac
 
+# show json output 
 cat << EOF
 {
   "project":"$folder",
@@ -41,6 +42,7 @@ cat << EOF
 }
 EOF
 
+# send data to influxdb
 if [ ! -z $HOST ]
 then
  curl --request POST \
