@@ -30,7 +30,7 @@ cat << EOF
   "chain":"sphinx",
   "type":"node",
   "status":"$status",
-  "note":"$note",
+  "message":"$message",
   "folder_size":"$folder_size",
   "updated":"$(date --utc +%FT%TZ)",
   "docker_status":"$docker_status",
@@ -49,6 +49,6 @@ then
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary '
-    status,node='$ID',machine='$MACHINE' status="'$status'",message="'$note'" '$(date +%s%N)' 
+    status,node='$ID',machine='$MACHINE' status="'$status'",message="'$message'" '$(date +%s%N)' 
     '
 fi
