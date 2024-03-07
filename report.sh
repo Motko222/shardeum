@@ -49,6 +49,6 @@ then
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary '
-    status,node=$ID,machine=$MACHINE status="$status",message="$note" $(date +%s%N) 
+    status,node='$ID',machine='$MACHINE' status="'$status'",message="'$note'" '$(date +%s%N)' 
     '
 fi
