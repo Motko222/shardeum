@@ -49,7 +49,7 @@ EOF
 if [ ! -z $INFLUX_HOST ]
 then
  curl --request POST \
- "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=SHARDEUM_BUCKET&precision=ns" \
+ "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$SHARDEUM_BUCKET&precision=ns" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
