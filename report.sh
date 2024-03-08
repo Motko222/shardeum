@@ -14,6 +14,7 @@ server_ip=$(cat ~/.shardeum/.env | grep SERVERIP | cut -d "=" -f 2)
 version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.shardeumVersion | sed 's/\"//g')
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
 id=shardeum-$SHARDEUM_ID
+url=https://$server_ip:$dash_port
 
 case $node_status in
  null) status="ok";message="standby" ;;
@@ -42,7 +43,7 @@ cat << EOF
   "node_status":"$node_status",
   "ext_port":"$ext_port",
   "version":"$version",
-  "links": { "name":"dash", "url":"https://$server_ip:$dash_port/maintenance" }
+  "links": { "name":"dash", "url":"$url" }
 }
 EOF
 
