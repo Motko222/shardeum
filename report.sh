@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#folder=$(echo $(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd) | awk -F/ '{print $NF}')
-#source ~/scripts/$folder/conf
-
 source ~/.bash_profile
 
 docker_status=$(docker inspect shardeum-dashboard | jq -r .[].State.Status)
@@ -52,7 +49,7 @@ EOF
 if [ ! -z $INFLUX_HOST ]
 then
  curl --request POST \
- "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=node&precision=ns" \
+ "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=SHARDEUM_BUCKET&precision=ns" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
