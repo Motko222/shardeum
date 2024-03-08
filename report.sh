@@ -15,6 +15,7 @@ version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.sha
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
 id=shardeum-$SHARDEUM_ID
 url=http://$server_ip:$dash_port
+chain=sphinx
 
 case $node_status in
  null) status="ok";message="standby" ;;
@@ -33,7 +34,7 @@ cat << EOF
   "project":"$folder",
   "id":"$id",
   "machine":"$MACHINE",
-  "chain":"sphinx",
+  "chain":"$chain",
   "type":"node",
   "status":"$status",
   "message":"$message",
@@ -56,6 +57,6 @@ then
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary '
-    status,node='$id',machine='$MACHINE' status="'$status'",message="'$message'",version="'$version'",url="'$url'" '$(date +%s%N)' 
+    status,node='$id',machine='$MACHINE' status="'$status'",message="'$message'",version="'$version'",url="'$url'",chain="'$chain'" '$(date +%s%N)' 
     '
 fi
