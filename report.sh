@@ -13,6 +13,7 @@ node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status 
 id=shardeum-$SHARDEUM_ID
 url=http://$server_ip:$dash_port
 chain=sphinx
+bucket=node
 
 case $node_status in
  null) status="ok";message="standby" ;;
@@ -49,7 +50,7 @@ EOF
 if [ ! -z $INFLUX_HOST ]
 then
  curl --request POST \
- "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$SHARDEUM_BUCKET&precision=ns" \
+ "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$bucket&precision=ns" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
