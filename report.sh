@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ~/.bash_profile
+
  
 docker_status=$(docker inspect shardeum-dashboard | jq -r .[].State.Status)
 folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
