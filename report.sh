@@ -14,6 +14,7 @@ id=$SHARDEUM_ID
 url=http://$server_ip:$dash_port
 network=testnet
 chain=sphinx
+group=node
 
 case $node_status in
  null) status="ok";message="standby" ;;
