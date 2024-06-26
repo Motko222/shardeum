@@ -10,10 +10,10 @@ server_ip=$(cat ~/.shardeum/.env | grep SERVERIP | cut -d "=" -f 2)
 
 version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.shardeumVersion | sed 's/\"//g')
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
-id=shardeum-$SHARDEUM_ID
+id=$SHARDEUM_ID
 url=http://$server_ip:$dash_port
+network=testnet
 chain=sphinx
-bucket=node
 
 case $node_status in
  null) status="ok";message="standby" ;;
@@ -29,9 +29,9 @@ esac
 # show json output 
 cat << EOF
 {
-  "project":"$folder",
   "id":"$id",
   "machine":"$MACHINE",
+  "network":"$network",
   "chain":"$chain",
   "type":"node",
   "status":"$status",
@@ -50,11 +50,11 @@ EOF
 if [ ! -z $INFLUX_HOST ]
 then
  curl --request POST \
- "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$bucket&precision=ns" \
+ "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$INFLUX_BUCKET&precision=ns" \
   --header "Authorization: Token $INFLUX_TOKEN" \
   --header "Content-Type: text/plain; charset=utf-8" \
   --header "Accept: application/json" \
   --data-binary "
-    status,node=$id,machine=$MACHINE status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\" $(date +%s%N) 
+    report,id=$id,machine=$MACHINE,grp=$group status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",network=\"$network\" $(date +%s%N) 
     "
 fi
