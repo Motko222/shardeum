@@ -8,6 +8,6 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 cd ~
-wget https://raw.githubusercontent.com/shardeum/validator-dashboard/main/installer.sh 
+wget https://raw.githubusercontent.com/shardeum/validator-dashboard/main/installer.sh -O installer.sh
 bash installer.sh
 rm installer.sh
