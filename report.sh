@@ -1,5 +1,8 @@
 #!/bin/bash
 
+path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
+folder=$(echo $path | awk -F/ '{print $NF}')
+json=~/logs/report-$folder
 source ~/.bash_profile
 
 docker_status=$(docker inspect shardeum-dashboard | jq -r .[].State.Status)
@@ -7,15 +10,9 @@ folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
 ext_port=$(cat ~/.shardeum/.env | grep SHMEXT | cut -d "=" -f 2)
 dash_port=$(cat ~/.shardeum/.env | grep DASHPORT | cut -d "=" -f 2)
 server_ip=$(cat ~/.shardeum/.env | grep SERVERIP | cut -d "=" -f 2)
-
 version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.shardeumVersion | sed 's/\"//g')
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
-id=$SHARDEUM_ID
 url=http://$server_ip:$dash_port
-network=testnet
-chain=sphinx
-group=node
-owner=$OWNER
 
 case $node_status in
  null) status="ok";message="standby" ;;
@@ -28,35 +25,30 @@ case $docker_status in
   *) status="error"; message="docker not running" ;;
 esac
 
-# show json output 
-cat << EOF
-{
-  "id":"$id",
-  "machine":"$MACHINE",
-  "network":"$network",
-  "chain":"$chain",
-  "type":"node",
-  "status":"$status",
-  "message":"$message",
-  "folder_size":"$folder_size",
+cat >$json << EOF
+{ 
   "updated":"$(date --utc +%FT%TZ)",
-  "docker_status":"$docker_status",
-  "node_status":"$node_status",
-  "ext_port":"$ext_port",
-  "version":"$version",
-  "links": { "name":"dash", "url":"$url" }
+  "measurement":"report",
+  "tags": {
+        "id":"$folder",
+        "machine":"$MACHINE",
+        "owner":"$OWNER",
+        "grp":"node" 
+  },
+  "fields": {
+        "machine":"$MACHINE",
+        "network":"testnet",
+        "chain":"atomium",
+        "status":"$status",
+        "message":"$message",
+        "folder_size":"$folder_size",
+        "updated":"$(date --utc +%FT%TZ)",
+        "docker_status":"$docker_status",
+        "node_status":"$node_status",
+        "ext_port":"$ext_port",
+        "version":"$version"
+   }
 }
 EOF
 
-# send data to influxdb
-if [ ! -z $INFLUX_HOST ]
-then
- curl --request POST \
- "$INFLUX_HOST/api/v2/write?org=$INFLUX_ORG&bucket=$INFLUX_BUCKET&precision=ns" \
-  --header "Authorization: Token $INFLUX_TOKEN" \
-  --header "Content-Type: text/plain; charset=utf-8" \
-  --header "Accept: application/json" \
-  --data-binary "
-    report,id=$id,machine=$MACHINE,grp=$group,owner=$owner status=\"$status\",message=\"$message\",version=\"$version\",url=\"$url\",chain=\"$chain\",network=\"$network\" $(date +%s%N) 
-    "
-fi
+cat $json | jq
