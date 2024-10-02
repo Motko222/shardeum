@@ -1,3 +1,7 @@
 #!/bin/bash
 
-/bin/bash -c "$(curl -O https://raw.githubusercontent.com/shardeum/validator-dashboard/main/installer.sh)"
+cd ~
+rm -r .shardeum
+wget https://raw.githubusercontent.com/shardeum/validator-dashboard/main/installer.sh -O installer.sh
+bash installer.sh
+rm installer.sh
