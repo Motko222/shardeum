@@ -5,7 +5,7 @@ folder=$(echo $path | awk -F/ '{print $NF}')
 json=~/logs/report-$folder
 source ~/.bash_profile
 
-docker_status=$(docker inspect shardeum-dashboard | jq -r .[].State.Status)
+docker_status=$(docker inspect shardeum-validator | jq -r .[].State.Status)
 folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
 ext_port=$(cat ~/.shardeum/.env | grep SHMEXT | cut -d "=" -f 2)
 dash_port=$(cat ~/.shardeum/.env | grep DASHPORT | cut -d "=" -f 2)
