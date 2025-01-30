@@ -14,10 +14,12 @@ version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.sha
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
 url=http://$server_ip:$dash_port
 
+cd $path
+
 case $node_status in
  null) status="ok";message="standby" ;;
  active) status="ok";message="active" ;;
- *) status="error";message="API error - $note_status" ;;
+ *) status="error";message="API error - $note_status, restarted";./start-node.sh ;;
 esac
 
 case $docker_status in
