@@ -19,7 +19,8 @@ cd $path
 case $node_status in
  null) status="ok";message="standby" ;;
  active) status="ok";message="active" ;;
- *) status="error";message="API error - $note_status, restarted";./start-node.sh ;;
+ #*) status="error";message="API error - $note_status, restarted";./start-node.sh ;;
+ *) status="error";message="API error - $note_status" ;;
 esac
 
 case $docker_status in
