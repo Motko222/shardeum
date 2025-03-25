@@ -13,5 +13,5 @@ docker rm shardeum-validator
 mv ~/.shardeum ~/backup
 mv ~/shardeum ~/backup
 bash ~/scripts/system/influx-delete-id.sh $folder
-rm -r $folder
+rm -r ~/scripts/$folder
 
