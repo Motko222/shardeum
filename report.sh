@@ -46,7 +46,6 @@ cat >$json << EOF
         "status":"$status",
         "message":"$message",
         "folder_size":"$folder_size",
-        "updated":"$(date --utc +%FT%TZ)",
         "docker_status":"$docker_status",
         "node_status":"$node_status",
         "ext_port":"$ext_port",
