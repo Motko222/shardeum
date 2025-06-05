@@ -2,6 +2,7 @@
 
 cd ~
 rm -r .shardeum
-wget https://raw.githubusercontent.com/shardeum/validator-dashboard/main/installer.sh -O installer.sh
-bash installer.sh
-rm installer.sh
+
+curl -O https://raw.githubusercontent.com/shardeum/shardeum-validator/refs/heads/dev/install.sh
+chmod +x install.sh
+./install.sh
