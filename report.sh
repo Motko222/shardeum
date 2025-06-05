@@ -13,7 +13,7 @@ server_ip=$(cat ~/.shardeum/.env | grep SERVERIP | cut -d "=" -f 2)
 version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.shardeumVersion | sed 's/\"//g')
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
 url=http://$server_ip:$dash_port
-rewards=$(docker logs shardeum-validator | grep currentRewards | tail -1 | awk '{print $NF}' | sed "s/'//g")
+rewards=$(docker logs shardeum-validator | grep currentRewards | tail -1 | awk '{print $NF}' | sed "s/'//g" | cut -d . -f 1)
 
 cd $path
 
