@@ -13,14 +13,15 @@ server_ip=$(cat ~/.shardeum/.env | grep SERVERIP | cut -d "=" -f 2)
 version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.shardeumVersion | sed 's/\"//g')
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
 url=http://$server_ip:$dash_port
+rewards=$(docker logs shardeum-validator | grep currentRewards | tail -1 | awk '{print $NF}' | sed "s/'//g")
 
 cd $path
 
 case $node_status in
- null) status="ok";message="standby" ;;
- active) status="ok";message="active" ;;
+ null) status="ok";message="rewards=$rewards status=standby" ;;
+ active) status="ok";message="rewards=$rewards status=active" ;;
  #*) status="error";message="API error - $note_status, restarted";./start-node.sh ;;
- *) status="error";message="API error - $note_status" ;;
+ *) status="error";message="API error ($note_status)" ;;
 esac
 
 case $docker_status in
