@@ -40,8 +40,8 @@ cat >$json << EOF
   },
   "fields": {
         "machine":"$MACHINE",
-        "network":"testnet",
-        "chain":"atomium",
+        "network":"mainnet",
+        "chain":"mainnet",
         "status":"$status",
         "message":"$message",
         "folder_size":"$folder_size",
