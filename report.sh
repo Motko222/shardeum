@@ -6,7 +6,7 @@ json=~/logs/report-$folder
 source ~/.bash_profile
 
 docker_status=$(docker inspect shardeum-validator | jq -r .[].State.Status)
-folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
+#folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
 ext_port=EXT_PORT
 dash_port=DASH_PORT
 server_ip=SERVER_IP
@@ -50,7 +50,8 @@ cat >$json << EOF
         "message":"$message",
         "m2":"size=$folder_size",
         "m1":"rewards=$rewards",
-        "version":"$version"
+        "version":"$version",
+        "url":"http://$server_ip:$dash_port"
    }
 }
 EOF
