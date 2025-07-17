@@ -21,8 +21,8 @@ rewards=$(docker logs shardeum-validator | grep -a currentRewards | tail -1 | aw
 cd $path
 
 case $node_status in
- null) status="ok";message="rewards=$rewards status=standby" ;;
- active) status="ok";message="rewards=$rewards status=active" ;;
+ null) status="ok";message="standby" ;;
+ active) status="ok";message="active" ;;
  #*) status="error";message="API error - $note_status, restarted";./start-node.sh ;;
  *) status="error";message="API error ($note_status)" ;;
 esac
@@ -37,7 +37,7 @@ cat >$json << EOF
   "updated":"$(date --utc +%FT%TZ)",
   "measurement":"report",
   "tags": {
-        "id":"$folder",
+        "id":"$folder-$ID",
         "machine":"$MACHINE",
         "owner":"$OWNER",
         "grp":"node" 
@@ -48,10 +48,8 @@ cat >$json << EOF
         "chain":"mainnet",
         "status":"$status",
         "message":"$message",
-        "folder_size":"$folder_size",
-        "docker_status":"$docker_status",
-        "node_status":"$node_status",
-        "ext_port":"$ext_port",
+        "m2":"size=$folder_size",
+        "m1":"rewards=$rewards",
         "version":"$version"
    }
 }
