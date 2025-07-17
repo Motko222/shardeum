@@ -4,6 +4,7 @@ path=$(cd -- $(dirname -- "${BASH_SOURCE[0]}") && pwd)
 folder=$(echo $path | awk -F/ '{print $NF}')
 json=~/logs/report-$folder
 source ~/.bash_profile
+source $path/env
 
 docker_status=$(docker inspect shardeum-validator | jq -r .[].State.Status)
 #folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
