@@ -7,9 +7,9 @@ source ~/.bash_profile
 
 docker_status=$(docker inspect shardeum-validator | jq -r .[].State.Status)
 #folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
-ext_port=EXT_PORT
-dash_port=DASH_PORT
-server_ip=SERVER_IP
+ext_port=$XT_PORT
+dash_port=$DASH_PORT
+server_ip=$SERVER_IP
 #ext_port=$(cat ~/.shardeum/.env | grep SHMEXT | cut -d "=" -f 2)
 #dash_port=$(cat ~/.shardeum/.env | grep DASHPORT | cut -d "=" -f 2)
 #server_ip=$(cat ~/.shardeum/.env | grep SERVERIP | cut -d "=" -f 2)
