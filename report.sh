@@ -44,9 +44,8 @@ cat >$json << EOF
         "grp":"node" 
   },
   "fields": {
-        "machine":"$MACHINE",
         "network":"mainnet",
-        "chain":"mainnet",
+        "chain":"shardeum",
         "status":"$status",
         "message":"$message",
         "m2":"size=$folder_size",
