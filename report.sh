@@ -21,7 +21,7 @@ url=http://$server_ip:$dash_port
 #rewards=$(docker logs shardeum-validator | grep -a currentRewards | tail -1 | awk '{print $NF}' | sed "s/'//g" | cut -d . -f 1)
 state=$(cat /root/logs/shardeum-status | grep state | awk '{print $NF}')
 last=$(cat /root/logs/shardeum-status | grep lastActive | awk '{print $NF}' | sed "s/'//g")
-rewards=$(cat /root/logs/shardeum-status | grep currentRewards | awk '{print $NF}')
+rewards=$(cat /root/logs/shardeum-status | grep currentRewards | awk '{print $NF}' | sed "s/'//g")
 
 cd $path
 
