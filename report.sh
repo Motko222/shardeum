@@ -18,8 +18,10 @@ server_ip=$SERVER_IP
 version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.shardeumVersion | sed 's/\"//g')
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
 url=http://$server_ip:$dash_port
-rewards=$(docker logs shardeum-validator | grep -a currentRewards | tail -1 | awk '{print $NF}' | sed "s/'//g" | cut -d . -f 1)
+#rewards=$(docker logs shardeum-validator | grep -a currentRewards | tail -1 | awk '{print $NF}' | sed "s/'//g" | cut -d . -f 1)
 state=$(cat /root/logs/shardeum-status | grep state | awk '{print $NF}')
+last=$(cat /root/logs/shardeum-status | grep lastActive | awk '{print $NF}')
+rewards=$(cat /root/logs/shardeum-status | grep currentRewards | awk '{print $NF}')
 
 cd $path
 
@@ -51,7 +53,7 @@ cat >$json << EOF
         "status":"$status",
         "message":"$message",
         "m2":"state=$state",
-        "m1":"rewards=$rewards",
+        "m1":"rewards=$rewards last=$last",
         "version":"$version",
         "url":"http://$server_ip:$dash_port"
    }
