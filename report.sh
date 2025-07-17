@@ -6,6 +6,7 @@ json=~/logs/report-$folder
 source ~/.bash_profile
 source $path/env
 
+docker exec shardeum-validator operator-cli status >/root/logs/shardeum-status
 docker_status=$(docker inspect shardeum-validator | jq -r .[].State.Status)
 #folder_size=$(du -hs $HOME/.shardeum | awk '{print $1}')
 ext_port=$EXT_PORT
@@ -18,12 +19,13 @@ version=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.appData.sha
 node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status | sed 's/"//g')
 url=http://$server_ip:$dash_port
 rewards=$(docker logs shardeum-validator | grep -a currentRewards | tail -1 | awk '{print $NF}' | sed "s/'//g" | cut -d . -f 1)
+state=$(cat /root/logs/shardeum-status | grep state | awk '{print $NF}')
 
 cd $path
 
 case $node_status in
- null) status="ok";message="standby" ;;
- active) status="ok";message="active" ;;
+ null) status="ok";message=$state ;;
+ active) status="ok";message=$state ;;
  #*) status="error";message="API error - $note_status, restarted";./start-node.sh ;;
  *) status="error";message="API error ($note_status)" ;;
 esac
@@ -48,7 +50,7 @@ cat >$json << EOF
         "chain":"shardeum",
         "status":"$status",
         "message":"$message",
-        "m2":"size=$folder_size",
+        "m2":"state=$state",
         "m1":"rewards=$rewards",
         "version":"$version",
         "url":"http://$server_ip:$dash_port"
