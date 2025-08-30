@@ -20,7 +20,7 @@ node_status=$(curl -s http://localhost:$ext_port/nodeinfo | jq .nodeInfo.status 
 url=http://$server_ip:$dash_port
 #rewards=$(docker logs shardeum-validator | grep -a currentRewards | tail -1 | awk '{print $NF}' | sed "s/'//g" | cut -d . -f 1)
 state=$(cat /root/logs/shardeum-status | grep state | awk '{print $NF}')
-last=$(cat /root/logs/shardeum-status | grep lastActive | awk '{print $3 $4 $5}' )
+last=$(cat /root/logs/shardeum-status | grep lastActive | awk '{print $4 $3}' )
 rewards=$(cat /root/logs/shardeum-status | grep currentRewards | awk '{print $NF}' | sed "s/'//g" | cut -d . -f 1 )
 
 cd $path
