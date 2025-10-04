@@ -61,7 +61,7 @@ cat >$json << EOF
         "status":"$status",
         "message":"$message",
         "m2":"state=$state",
-        "m1":"rewards=$rewards last=$last",
+        "m1":"rewards=$rewards last=$last_ago",
         "version":"$version",
         "url":"http://$server_ip:$dash_port"
    }
